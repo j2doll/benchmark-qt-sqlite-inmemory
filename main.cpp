@@ -7,6 +7,7 @@
 #include <QDateTime>
 #include <QDate>
 #include <QTime>
+#include <QVariant>
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
