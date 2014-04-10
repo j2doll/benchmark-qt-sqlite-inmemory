@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
 void test()
 {
-    // open the in-memory database of sqlite
+    // 1. open the in-memory database of sqlite
     QSqlDatabase db = QSqlDatabase::addDatabase( "QSQLITE" );
     db.setDatabaseName( ":memory:" );
     bool isOpenDB = db.open();
@@ -33,23 +33,14 @@ void test()
     if ( !db.isValid() )
         return;
 
-    // create a table in the memory DB
-    QSqlQuery q_create = db.exec( "CREATE TABLE qdn( id int, name varchar(50) );" );
+    // 2. create a table in the memory DB
+    QSqlQuery q_create = db.exec( "CREATE TABLE qdn( id int primary key, name varchar(50) );" );
     qDebug() << "(2) create table : " << q_create.lastError();
-    // if ( ! q_create.isValid() )
-    //    return;
-
-    // repeat test
-    // 1. insert
-    // 4. select
-    // 2. delete
-    // 3. update
 
     int maxRepeatCount = 6000;
 
+    // 3. insert test
     {
-        // insert test
-
         QTime t;
         qDebug() << "(INSERT) start to test ";
         t.start();
@@ -70,9 +61,8 @@ void test()
                  << "\n max repeat count :" << maxRepeatCount;
     }
 
+    // 4. update test
     {
-        // update test
-
         QTime t;
         qDebug() << "(UPDATE) start to test ";
         t.start();
@@ -92,9 +82,8 @@ void test()
                  << "\n max repeat count :" << maxRepeatCount;
     }
 
+    // 5. select-all test
     {
-        // select-all test
-
         QTime t;
         qDebug() << "(SELECT-ALL) start to test ";
         t.start();
@@ -116,9 +105,8 @@ void test()
         qDebug() << "(SELECT-ALL) time elapsed :" << elapsedTime << "mil-sec.";
     }
 
+    // 6. delete test
     {
-        // delete test
-
         QTime t;
         qDebug() << "(DELETE) start to test ";
         t.start();
