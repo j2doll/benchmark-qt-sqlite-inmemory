@@ -100,15 +100,17 @@ void test()
 
         QSqlQuery q("SELECT * FROM qdn;");
         QSqlRecord rec = q.record();
-        qDebug() << "(SELECT-ALL) number of columns: " << rec.count();
-
+        int count = 0;
         int nameCol = rec.indexOf("name");
         while ( q.next() ) // get next record
         {
             QString name = q.value(nameCol).toString(); // get 'name'
+            count++;
         }
 
         int elapsedTime = t.elapsed();
+
+        qDebug() << " number of records: " << count;
 
         qDebug() << "(SELECT-ALL) time elapsed :" << elapsedTime << "mil-sec.";
     }
